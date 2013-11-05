@@ -34,33 +34,9 @@ $feed = $facebook->api('jarchule?fields=feed');
 </head>
 <body>
 
-<a href="<?= $jarchule['link'] ?>">
-<img src="https://graph.facebook.com/jarchule/picture?width=200&height=200">
-</a>
-<h2><?= $jarchule['name'] ?></h2>
 
 
 
-<?php foreach ($feed['feed']['data'] as $data) {
-	//print_r($data);
-	echo "<p>";
-	switch($data['type']){
-		case 'status';
-			echo $data['message'];
-			break;
-		case 'photo':
-			echo $data['story'];
-			if(!empty($data['message']) ){
-				echo $data['message'];
-			}
-
-			$url = $data['picture'];
-			echo "<img src=\"$url\"></img> ";
-
-		break;
-	}
-	echo "</p>";
-}?>
 
 <pre>
 <?php //print_r($jarchule) ?>
@@ -71,9 +47,38 @@ $feed = $facebook->api('jarchule?fields=feed');
 
 	<div class="row">
 		<div class="large-12 columns">
-			<h2>Welcome to Foundation</h2>
-			<p>This is version 4.3.2.</p>
+			<h2><?= $jarchule['name'] ?></h2>
+			<p><a href="<?= $jarchule['link'] ?>">
+<img src="https://graph.facebook.com/jarchule/picture?width=200&height=200">
+</a>
+			</p>
 			<hr />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-8 columns">
+		<?php foreach ($feed['feed']['data'] as $data) {
+			//print_r($data);
+			echo "<p>";
+			switch($data['type']){
+				case 'status';
+					echo $data['message'];
+					break;
+				case 'photo':
+					echo $data['story'];
+					if(!empty($data['message']) ){
+						echo $data['message'];
+					}
+
+					$url = $data['picture'];
+					echo "<img src=\"$url\"></img> ";
+
+				break;
+			}
+			echo "<hr />";
+			echo "</p>";
+		}?>
 		</div>
 	</div>
 
